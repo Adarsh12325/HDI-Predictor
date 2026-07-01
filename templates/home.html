@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Development Index Predictor - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/Home">Home</a>
+        <a href="/Prediction">Predict</a>
+    </div>
+    
+    <div class="container">
+        <h1 class="header-title">Human Development Index</h1>
+        <p class="header-subtitle">Empowering socioeconomic progress analysis using Machine Learning</p>
+        
+        <div class="glass-card">
+            <p class="home-text">
+                The <strong>Human Development Index (HDI)</strong> is a statistic composite index of life expectancy, education, 
+                and per capita income indicators, which are used to rank countries into four development tiers: 
+                <span style="color:#06b6d4; font-weight:bold;">Very High</span>, 
+                <span style="color:#10b981; font-weight:bold;">High</span>, 
+                <span style="color:#f59e0b; font-weight:bold;">Medium</span>, and 
+                <span style="color:#ef4444; font-weight:bold;">Low</span>. 
+                A country scores a higher HDI when the lifespan is higher, the education level is higher, and the gross national income GNI (PPP) per capita is higher. 
+                The HDI was created to emphasize that people and their capabilities should be the ultimate criteria for assessing the development of a country, not economic growth alone.
+            </p>
+            <p class="home-text" style="margin-bottom: 3rem;">
+                This web application implements a <strong>Linear Regression machine learning model</strong> to predict a country's HDI score based on key national socioeconomic indicators. 
+                Enter specific dimension measurements to find the predicted score, determine its development tier, and discover the weakest dimension constraint.
+            </p>
+            
+            <div class="home-cta">
+                <a href="/Prediction" class="home-cta-btn">Get Started & Predict</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

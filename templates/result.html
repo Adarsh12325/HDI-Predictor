@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Development Index Predictor - Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/Home">Home</a>
+        <a href="/Prediction">Predict</a>
+    </div>
+    
+    <div class="container">
+        <h1 class="header-title">Human Development Index</h1>
+        <p class="header-subtitle">A machine learning web application using Flask</p>
+        
+        <div class="glass-card" style="margin-top: 1rem;">
+            <div class="result-header">
+                <h3 style="font-size: 1.3rem; color: var(--text-secondary);">Predicted Development Tier</h3>
+                <div class="result-hdi-box">{{ prediction_text }}</div>
+            </div>
+            
+            <!-- Progress Bar Index Indicator -->
+            <div class="hdi-bar-container">
+                <div class="hdi-bar-labels">
+                    <span>Low (< 0.55)</span>
+                    <span>Medium (0.55 - 0.70)</span>
+                    <span>High (0.70 - 0.80)</span>
+                    <span>Very High (>= 0.80)</span>
+                </div>
+                <div class="hdi-progress-track">
+                    <!-- Set progress width percentage dynamically (HDI is between 0.3 and 0.96) -->
+                    <!-- Linear mapping: width = (y_pred - 0.3) / (0.96 - 0.3) * 100 -->
+                    {% set width_pct = ((y_pred - 0.3) / 0.66 * 100) %}
+                    <div class="hdi-progress-fill" style="width: {{ width_pct }}%;"></div>
+                </div>
+            </div>
+
+            <!-- Weakest Dimension Constraint Analysis -->
+            <div class="explanation-box">
+                <div class="explanation-title">Development Constraint Analysis</div>
+                <p style="font-size: 1rem; color: var(--text-primary);">
+                    <strong>Weakest Contributor:</strong> <span class="weakest-text">{{ weak_dim }} (Score: {{ weak_score }})</span>
+                </p>
+                <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                    {{ explanation }}
+                </p>
+            </div>
+
+            <!-- Input Metrics Display -->
+            <h3 style="font-size: 1.1rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem; margin-bottom: 1rem;">Country Input Profile</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Country</span>
+                    <span class="metric-val" style="color: #60a5fa;">{{ country_name }}</span>
+                </div>
+                <div class="metric-card {% if weak_dim == 'Health (Life Expectancy)' %}weakest{% endif %}">
+                    <span class="metric-label">Life Expectancy</span>
+                    <span class="metric-val">{{ life_exp }} Years</span>
+                </div>
+                <div class="metric-card {% if weak_dim == 'Education (Schooling)' %}weakest{% endif %}">
+                    <span class="metric-label">Schooling (Mean)</span>
+                    <span class="metric-val">{{ mean_school }} Years</span>
+                </div>
+                <div class="metric-card {% if weak_dim == 'Income (Gross National Income)' %}weakest{% endif %}">
+                    <span class="metric-label">GNI per Capita</span>
+                    <span class="metric-val">${{ "{:,.0f}".format(gni) }} (PPP)</span>
+                </div>
+            </div>
+            
+            <div class="result-footer">
+                <a href="/Prediction" class="btn-secondary">Run Another Prediction</a>
+                <a href="/Home" class="btn-secondary" style="border-color: var(--accent-glow); color: #c084fc;">View Overview</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
