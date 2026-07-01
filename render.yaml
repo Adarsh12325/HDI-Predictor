@@ -1,8 +1,8 @@
 services:
   - type: web
-    name: hdi-predictor
+    name: hdi-predictor-bdbt
     env: docker
     plan: free
     region: oregon
-    dockerfilePath: hdi-predictor/Dockerfile
-    dockerContext: hdi-predictor
+    dockerfilePath: Dockerfile
+    dockerContext: .
